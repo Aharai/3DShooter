@@ -32,6 +32,7 @@
 
         public void ReloadClip()
         {
+            if (_weapon == null) return;
             _weapon.ReloadClip();
             UiInterface.WeaponUiText.ShowData(_weapon.Clip.CountAmmunition, _weapon.CountClip);
         }
