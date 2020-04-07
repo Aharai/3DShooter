@@ -7,7 +7,7 @@ namespace Geekbrains
     {
         private readonly Camera _mainCamera;
         private readonly Vector2 _center;
-        private readonly float _dedicateDistance = 20.0f;
+        private readonly float _dedicateDistance = 20;
         private GameObject _dedicatedObj;
         private ISelectObj _selectedObj;
         private bool _nullString;
@@ -16,7 +16,7 @@ namespace Geekbrains
         public SelectionController()
         {
             _mainCamera = Camera.main;
-            _center = new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
+            _center = new Vector2(Screen.width / 2, Screen.height / 2);
         }
 
         public void Execute()

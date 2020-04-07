@@ -6,9 +6,9 @@ namespace Geekbrains
 {
     public sealed class FlashLightModel : BaseObjectScene
     {
-        [SerializeField] private float _speed = 11.0f;
+        [SerializeField] private float _speed = 11;
         [SerializeField] private float _batteryChargeMax;
-        [SerializeField] private float _intensity = 1.5f;
+        [SerializeField] private float Intensity = 1.5f;
         private Light _light;
         private Transform _goFollow;
         private Vector3 _vecOffset;
@@ -25,9 +25,9 @@ namespace Geekbrains
             _goFollow = Camera.main.transform;
             _vecOffset = transform.position - _goFollow.position;
             BatteryChargeCurrent = _batteryChargeMax;
-            _light.intensity = _intensity;
-            _share = _batteryChargeMax / 4.0f;
-            _takeAwayTheIntensity = _intensity / (_batteryChargeMax * 100.0f);
+            _light.intensity = Intensity;
+            _share = _batteryChargeMax / 4;
+            _takeAwayTheIntensity = Intensity / (_batteryChargeMax * 100);
         }
 
         public void Switch(FlashLightActiveType value)
@@ -43,7 +43,6 @@ namespace Geekbrains
                     break;
                 case FlashLightActiveType.Off:
                     _light.enabled = false;
-                    BatteryRecharge();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value), value, null);
@@ -79,14 +78,14 @@ namespace Geekbrains
 
         public bool LowBattery()
         {
-            return BatteryChargeCurrent <= _batteryChargeMax / 2.0f;
+            return BatteryChargeCurrent <= _batteryChargeMax / 2;
         }
 
         public bool BatteryRecharge()
         {
             if (BatteryChargeCurrent < _batteryChargeMax)
             {
-                BatteryChargeCurrent = _batteryChargeMax;
+                BatteryChargeCurrent += Time.deltaTime;
                 return true;
             }
             return false;

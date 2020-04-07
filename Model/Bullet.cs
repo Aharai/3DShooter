@@ -4,14 +4,15 @@ namespace Geekbrains
 {
     public sealed class Bullet : Ammunition
     {
-        private void OnCollisionEnter(Collision collision) // todo своя обработка полета и получения урона
+        private void OnCollisionEnter(Collision collision)
         {
             // дописать доп урон
-            var setDamage = collision.gameObject.GetComponent<ICollision>();
+            var tempObj = collision.gameObject.GetComponent<ICollision>();
 
-            if (setDamage != null)
+            if (tempObj != null)
             {
-                setDamage.CollisionEnter(new InfoCollision(_curDamage, Rigidbody.velocity));
+                tempObj.OnCollision(new InfoCollision(_curDamage, collision.contacts[0], collision.transform,
+                    Rigidbody.velocity));
             }
 
             DestroyAmmunition();

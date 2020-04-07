@@ -5,14 +5,12 @@ namespace Geekbrains
 {
     public sealed class Aim : MonoBehaviour, ICollision, ISelectObj
     {
-        public event Action OnPointChange = delegate {  };
+        public event Action OnPointChange;
 		
         public float Hp = 100;
         private bool _isDead;
-        private float _timeToDestroy = 10.0f;
-        private float _armor = 100;
-
-        public void CollisionEnter(InfoCollision info)
+        //todo дописать поглащение урона
+        public void OnCollision(InfoCollision info)
         {
             if (_isDead) return;
             if (Hp > 0)
@@ -26,12 +24,11 @@ namespace Geekbrains
                 {
                     gameObject.AddComponent<Rigidbody>();
                 }
-                Destroy(gameObject, _timeToDestroy);
+                Destroy(gameObject, 10);
 
-                OnPointChange.Invoke();
+                OnPointChange?.Invoke();
                 _isDead = true;
             }
-            print(34525443);
         }
 
         public string GetMessage()

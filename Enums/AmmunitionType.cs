@@ -4,7 +4,6 @@
 	{
 		None   = 0,
 		Rpg    = 2,
-		Bullet = 4,
-		BulletUMP = 6
+		Bullet = 4
 	}
 }

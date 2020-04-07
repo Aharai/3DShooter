@@ -93,17 +93,19 @@ namespace Geekbrains
 
 		private void RendererSetActive(Transform renderer)
 		{
-			if (renderer.gameObject.TryGetComponent<Renderer>(out var component))
-			{
+			var component = renderer.gameObject.GetComponent<Renderer>();
+			if (component)
 				component.enabled = _isVisible;
-			}
 		}
 
 		private void AskColor(Transform obj, Color color)
 		{
-			foreach (var curMaterial in obj.GetComponent<Renderer>().materials)
+			if (obj.TryGetComponent<Renderer>(out var renderer))
 			{
-				curMaterial.color = color;
+				foreach (var curMaterial in renderer.materials)
+				{
+					curMaterial.color = color;
+				}
 			}
 			if (obj.childCount <= 0) return;
 			foreach (Transform d in obj)
@@ -162,9 +164,11 @@ namespace Geekbrains
 		public void SetActive(bool value)
 		{
 			IsVisible = value;
-			if (TryGetComponent<Collider>(out var component))
+
+			var tempCollider = GetComponent<Collider>();
+			if (tempCollider)
 			{
-				component.enabled = value;
+				tempCollider.enabled = value;
 			}
 		}
 	}

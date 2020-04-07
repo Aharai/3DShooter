@@ -1,4 +1,6 @@
-﻿namespace Geekbrains
+﻿using UnityEngine;
+
+namespace Geekbrains
 {
 	public interface ISelectObj
 	{

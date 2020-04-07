@@ -6,13 +6,12 @@ namespace Geekbrains
     {
         [SerializeField] private float _timeToDestruct = 10;
         [SerializeField] private float _baseDamage = 10;
-
-        protected float _declineDamage = 2;
-        protected float _curDamage; // todo доделать свой урон
+        protected float _curDamage;
         private float _lossOfDamageAtTime = 0.2f;
-        private ITimeRemaining _timeRemaining;
 
         public AmmunitionType Type = AmmunitionType.Bullet;
+
+        protected int _declineDamage = 5;
 
         protected override void Awake()
         {
@@ -22,9 +21,8 @@ namespace Geekbrains
 
         private void Start()
         {
-            Destroy(gameObject, _timeToDestruct);
-            _timeRemaining = new TimeRemaining(LossOfDamage, 1.0f, true);
-            _timeRemaining.AddTimeRemaining();
+            DestroyAmmunition(_timeToDestruct);
+            InvokeRepeating(nameof(LossOfDamage), 0, 1);
         }
 
         public void AddForce(Vector3 dir)
@@ -38,10 +36,10 @@ namespace Geekbrains
             _curDamage -= _lossOfDamageAtTime;
         }
 
-        protected void DestroyAmmunition()
+        protected void DestroyAmmunition(float timeToDestruct = 0)
         {
-            Destroy(gameObject);
-            _timeRemaining.RemoveTimeRemaining();
+            Destroy(gameObject, timeToDestruct);
+            CancelInvoke(nameof(LossOfDamage));
             // Вернуть в пул
         }
     }
